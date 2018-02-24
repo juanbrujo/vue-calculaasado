@@ -16,7 +16,7 @@
 	<div id="app">
 		<div class="container box-wrapper">
 			<div class="row">
-				<div class="column-10 column-center">
+				<div class="column-8 column-center">
 					<h1>{{ title }}</h1>
 					<h2>{{ description }}</h2>
 				</div>
@@ -61,63 +61,9 @@
 			</div>
 		</div>
 	</div>
-	<video src="https://gcs-vimeo.akamaized.net/exp=1519450407~acl=%2A%2F452088659.mp4%2A~hmac=fdf53eb32461b49c0e6e584ff26db97a2fa793b55e6de06d8cbfe5b38a53a577/vimeo-prod-skyfire-std-us/01/4722/5/148614442/452088659.mp4" autoplay></video>
+	<div class="background"></div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
-	<script>
-		// source: http://calculatuasado.cl/javascripts/app.js
-		new Vue({
-			el: '#app',
-  			data () {
-  				return {
-  					title: '¿Cuánto debo comprar para el asado?',
-  					description: 'No te vuelvas loco calculando tu asado, te entregamos la herramienta perfecta. Indica la cantidad de comensales y cuál es tu presupuesto.',
-  					disclaimer: '(Los cálculos son en base a valores reales de precios de Supermercados en Chile)',
-  					cantHombres: 0,
-  					cantMujeres: 0,
-  					cantNinos: 0,
-  					totalInvitados: 0,
-  					selecPresupuesto: null,
-  					presupuestos: [
-  						{
-  							name: 'Poco',
-  							type: 'Sólo choripán',
-  							alternatives: 'Quizás salchichas.'
-  						},
-  						{
-  							name: 'Medio',
-  							type: 'Sobrecostilla y choripán',
-  							alternatives: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.'
-  						},
-  						{
-  							name: 'Harto',
-  							type: 'Lomo vetado y buena longaniza',
-  							alternatives: 'Lomo liso, Punta de Ganso y Tapa Barriga.'
-  						}
-  					],
-  					pesoComida: 0,
-  					tipoComida: null,
-  					alternativasComida: null,
-  					pesoEmbutido: 0,
-  					tipoEmbutido: null,
-  					pesoCarbon: 0,
-  					cantPan: 0,
-  					precioTotal: 0,
-  					precioCada: 0,
-  				}
-  			},
-  			methods: {
-  				calcTotalInvitados: function () {
-  					return this.totalInvitados = parseInt(this.cantHombres) + parseInt(this.cantMujeres) + parseInt(this.cantNinos)
-  				},
-  				calcPan: function () {
-  					return Math.round((parseInt(this.cantNinos*1) + parseInt(this.cantMujeres*1) + parseInt(this.cantHombres*2))/2)
-  				},
-  				calcCarne: function () {
-  					return Math.round(parseInt(this.cantNinos*0.2) + parseInt(this.cantMujeres*25) + parseInt(this.cantHombres*35))
-  				}
-  			}
-		})
-	</script>
+	<script src="assets/js/app.js"></script>
 </body>
 </html>

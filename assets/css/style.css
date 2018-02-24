@@ -7,6 +7,14 @@ body {
 	font-size: 16px;
 	background: url() center center no-repeat;
 	background-size: cover;
+	color: #fff;
+}
+
+.box-wrapper {
+	padding: 1em 2em;
+	margin-top: 1em;
+	background-color: rgba(0,0,0,.7);	
+	border-radius: 2em;
 }
 
 h1,
@@ -17,6 +25,18 @@ h2 {
 h2 {
 	font-weight: normal;
 	font-size: 1.1em;
+}
+
+video {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background-size: cover;
 }
 
 .disclaimer {

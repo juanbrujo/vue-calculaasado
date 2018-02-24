@@ -10,44 +10,78 @@ new Vue({
 				cantMujeres: 0,
 				cantNinos: 0,
 				totalInvitados: 0,
-				selecPresupuesto: null,
+				selecPresupuesto: [],
 				presupuestos: [
 					{
 						name: 'Poco',
 						type: 'Sólo choripán',
-						alternatives: 'Quizás salchichas.'
+            food: 'choripán',
+						alternative: 'Quizás salchichas.',
+            embutido: null,
+            precioCarne: 0,
+            precioEmbutido: 3800
 					},
 					{
 						name: 'Medio',
 						type: 'Sobrecostilla y choripán',
-						alternatives: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.'
+            food: 'sobrecostilla',
+						alternative: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.',
+            embutido: 'choripán',
+            precioCarne: 6400,
+            precioEmbutido: 3800
 					},
 					{
 						name: 'Harto',
 						type: 'Lomo vetado y buena longaniza',
-						alternatives: 'Lomo liso, Punta de Ganso y Tapa Barriga.'
+            food: 'lomo vetado',
+						alternative: 'Lomo liso, Punta de ganso y Tapa barriga.',
+            embutido: 'longaniza',
+            precioCarne: 9500,
+            precioEmbutido: 5800
 					}
 				],
 				pesoComida: 0,
-				tipoComida: null,
-				alternativasComida: null,
 				pesoEmbutido: 0,
-				tipoEmbutido: null,
 				pesoCarbon: 0,
 				cantPan: 0,
 				precioTotal: 0,
-				precioCada: 0,
+        precioCada: 0,
+        tipoEmbutido: null,
+        totalCarne: 0,
+        totalInvitados: 0,
+        totalPan: 0,
+        totalEmbutido: 0,
+        totalCarbon: 0,
+        precioTotal: 0
 			}
 		},
 		methods: {
 			calcTotalInvitados: function () {
-				return this.totalInvitados = parseInt(this.cantHombres) + parseInt(this.cantMujeres) + parseInt(this.cantNinos)
+				this.totalInvitados = this.totalInvitados = parseInt(this.cantHombres) + parseInt(this.cantMujeres) + parseInt(this.cantNinos)
+        return this.totalInvitados
 			},
 			calcPan: function () {
-				return Math.round((parseInt(this.cantNinos*1) + parseInt(this.cantMujeres*1) + parseInt(this.cantHombres*2))/2)
+				this.totalPan = (this.cantNinos*1 + this.cantMujeres*1 + this.cantHombres*2)/2
+        return this.totalPan
 			},
 			calcCarne: function () {
-				return Math.round(parseInt(this.cantNinos*0.2) + parseInt(this.cantMujeres*25) + parseInt(this.cantHombres*35))
-			}
-		}
+				this.totalCarne = (this.cantNinos*0.2 + this.cantMujeres*0.25 + this.cantHombres*0.35).toFixed(2)
+        return this.totalCarne
+			},
+      calcEmbutido: function () {
+        this.totalEmbutido = (this.cantNinos*0.05 + this.cantMujeres*0.05 + this.cantHombres*0.35).toFixed(2)
+        return this.totalEmbutido
+      },
+      calcCarbon: function () {
+        this.totalCarbon = (parseInt(this.totalCarne) + parseInt(this.totalEmbutido))*3/5
+        return this.totalCarbon
+      },
+      calcTotal: function () {
+        //this.precioTotal = 
+      },
+      monetyze: function (value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      }
+		},
+    created: function () {}
 })

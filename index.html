@@ -32,9 +32,24 @@
 							<br>
 							<select v-model="selecPresupuesto">
 								<option value="" disabled>Seleccione su presupuesto:</option>
-								<option v-for="presupuesto in presupuestos" v-bind:value="presupuesto.type">{{ presupuesto.name }}</option>
+								<option v-for="presupuesto in presupuestos" :value="[presupuesto.type, presupuesto.alternative, presupuesto.food]">{{ presupuesto.name }}</option>
 							</select>
-							<p>{{ selecPresupuesto }}</p>
+							<p>{{ selecPresupuesto[0] }}</p>
+<ol>
+<li>pesoComida: {{ pesoComida }}</li>
+<li>pesoEmbutido: {{ pesoEmbutido }}</li>
+<li>pesoCarbon: {{ pesoCarbon }}</li>
+<li>cantPan: {{ cantPan }}</li>
+<li>precioTotal: {{ precioTotal }}</li>
+<li>precioCada: {{ precioCada }}</li>
+<li>tipoEmbutido: {{ tipoEmbutido }}</li>
+<li>totalCarne: {{ totalCarne }}</li>
+<li>totalInvitados: {{ totalInvitados }}</li>
+<li>totalPan: {{ totalPan }}</li>
+<li>totalEmbutido: {{ totalEmbutido }}</li>
+<li>totalCarbon: {{ totalCarbon }}</li>
+<li>precioTotal: {{ precioTotal }}</li>
+</ol>
 						</fieldset>
 					</form>
 				</div>
@@ -45,11 +60,13 @@
 						<hr>
 						<ul>
 							<li v-if="selecPresupuesto != 'Sólo choripán'">
-								{{ calcCarne() }} kg de {{ tipoComida }}
-								<p class="alternativa">Alternativas: {{ alternativasComida }}</p>
+								{{ calcCarne() }} kg de {{ selecPresupuesto[2] }}
+								<p class="alternativa">Alternativas: {{ selecPresupuesto[1] }}</p>
 							</li>
-							<li>{{ pesoEmbutido }} kg de {{ tipoEmbutido }}</li>
-							<li>{{ pesoCarbon }} kg de Carbón</li>
+							<li v-if="selecPresupuesto == 'Sólo choripán'">
+								{{ calcEmbutido() }} kg de {{ selecPresupuesto[3] }}
+							</li>
+							<li>{{ calcCarbon() }} kg de Carbón</li>
 							<li>{{ calcPan() }} unidad(es) de Pan Marraqueta</li>
 						</ul>
 						<p class="precio-total">El costo total del asado es de ${{ precioTotal }} (${{ precioCada }} por cada uno de los {{ calcTotalInvitados() }})</p>

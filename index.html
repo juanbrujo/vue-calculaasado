@@ -24,11 +24,12 @@
 			<div class="row">
 				<div class="column-6">
 					<form>
-						<fieldset>
+						<fieldset class="box-form">
 							<legend>Cantidad de Invitados:</legend>
 							<input type="number" min="0" name="hombres" placeholder="Hombres" v-model="cantHombres">
 							<input type="number" min="0" name="mujeres" placeholder="Mujeres" v-model="cantMujeres">
 							<input type="number" min="0" name="ninos" placeholder="Niños" v-model="cantNinos">
+							<br>
 							<select v-model="selecPresupuesto">
 								<option value="" disabled>Seleccione su presupuesto:</option>
 								<option v-for="presupuesto in presupuestos" v-bind:value="presupuesto.type">{{ presupuesto.name }}</option>
@@ -51,7 +52,7 @@
 							<li>{{ pesoCarbon }} kg de Carbón</li>
 							<li>{{ calcPan() }} unidad(es) de Pan Marraqueta</li>
 						</ul>
-						<p class="precio-total">El costo total del asado es de ${{ precioTotal }} (${{ precioCada }} por cada uno de los {{ calcTotalInvitados() }}</p>
+						<p class="precio-total">El costo total del asado es de ${{ precioTotal }} (${{ precioCada }} por cada uno de los {{ calcTotalInvitados() }})</p>
 				</div>
 			</div>
 		</div>

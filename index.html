@@ -29,27 +29,12 @@
 							<input type="number" min="0" name="hombres" placeholder="Hombres" v-model="cantHombres">
 							<input type="number" min="0" name="mujeres" placeholder="Mujeres" v-model="cantMujeres">
 							<input type="number" min="0" name="ninos" placeholder="Niños" v-model="cantNinos">
-							<br>
+							<p><b>¿Cuál es tu presupuesto?</b></p>
 							<select v-model="selecPresupuesto">
-								<option value="" disabled>Seleccione su presupuesto:</option>
-								<option v-for="presupuesto in presupuestos" :value="[presupuesto.type, presupuesto.alternative, presupuesto.food]">{{ presupuesto.name }}</option>
+								<option value="" disabled>Seleccione:</option>
+								<option v-for="presupuesto in presupuestos" :value="[presupuesto.type, presupuesto.alternative, presupuesto.food, presupuesto.embutido, presupuesto.precioCarne, presupuesto.precioEmbutido]">{{ presupuesto.name }}</option>
 							</select>
 							<p>{{ selecPresupuesto[0] }}</p>
-<ol>
-<li>pesoComida: {{ pesoComida }}</li>
-<li>pesoEmbutido: {{ pesoEmbutido }}</li>
-<li>pesoCarbon: {{ pesoCarbon }}</li>
-<li>cantPan: {{ cantPan }}</li>
-<li>precioTotal: {{ precioTotal }}</li>
-<li>precioCada: {{ precioCada }}</li>
-<li>tipoEmbutido: {{ tipoEmbutido }}</li>
-<li>totalCarne: {{ totalCarne }}</li>
-<li>totalInvitados: {{ totalInvitados }}</li>
-<li>totalPan: {{ totalPan }}</li>
-<li>totalEmbutido: {{ totalEmbutido }}</li>
-<li>totalCarbon: {{ totalCarbon }}</li>
-<li>precioTotal: {{ precioTotal }}</li>
-</ol>
 						</fieldset>
 					</form>
 				</div>
@@ -63,13 +48,13 @@
 								{{ calcCarne() }} kg de {{ selecPresupuesto[2] }}
 								<p class="alternativa">Alternativas: {{ selecPresupuesto[1] }}</p>
 							</li>
-							<li v-if="selecPresupuesto == 'Sólo choripán'">
+							<li v-if="selecPresupuesto != 'Sólo choripán'">
 								{{ calcEmbutido() }} kg de {{ selecPresupuesto[3] }}
 							</li>
 							<li>{{ calcCarbon() }} kg de Carbón</li>
-							<li>{{ calcPan() }} unidad(es) de Pan Marraqueta</li>
+							<li>{{ calcPan() }} unidad(es) de pan marraqueta</li>
 						</ul>
-						<p class="precio-total">El costo total del asado es de ${{ precioTotal }} (${{ precioCada }} por cada uno de los {{ calcTotalInvitados() }})</p>
+						<p class="precio-total">El costo total del asado es de ${{ calcTotal() }} (${{ precioCada }} por cada uno de los {{ calcTotalInvitados() }})</p>
 				</div>
 			</div>
 		</div>

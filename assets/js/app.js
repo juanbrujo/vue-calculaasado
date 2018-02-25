@@ -15,7 +15,7 @@ new Vue({
 					{
 						name: 'Poco',
 						type: 'Sólo choripán',
-            food: 'choripán',
+            food: 'chorizos',
 						alternative: 'Quizás salchichas.',
             embutido: null,
             precioCarne: 0,
@@ -26,7 +26,7 @@ new Vue({
 						type: 'Sobrecostilla y choripán',
             food: 'sobrecostilla',
 						alternative: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.',
-            embutido: 'choripán',
+            embutido: 'chorizos',
             precioCarne: 6400,
             precioEmbutido: 3800
 					},
@@ -44,15 +44,14 @@ new Vue({
 				pesoEmbutido: 0,
 				pesoCarbon: 0,
 				cantPan: 0,
-				precioTotal: 0,
-        precioCada: 0,
         tipoEmbutido: null,
         totalCarne: 0,
         totalInvitados: 0,
         totalPan: 0,
         totalEmbutido: 0,
         totalCarbon: 0,
-        precioTotal: 0
+        precioTotal: 0,
+        precioCada: 0
 			}
 		},
 		methods: {
@@ -69,7 +68,7 @@ new Vue({
         return this.totalCarne
 			},
       calcEmbutido: function () {
-        this.totalEmbutido = (this.cantNinos*0.05 + this.cantMujeres*0.05 + this.cantHombres*0.35).toFixed(2)
+        this.totalEmbutido = (this.cantNinos*0.05 + this.cantMujeres*0.05 + this.cantHombres*0.1).toFixed(2)
         return this.totalEmbutido
       },
       calcCarbon: function () {
@@ -77,11 +76,14 @@ new Vue({
         return this.totalCarbon
       },
       calcTotal: function () {
-        //this.precioTotal = 
+        this.precioTotal = this.monetyze(parseInt(this.selecPresupuesto[4]) + parseInt(this.selecPresupuesto[5]) + (parseInt(this.totalCarbon)*2800) + ((parseInt(this.totalPan)/12)*1200))
+        return this.precioTotal
       },
       monetyze: function (value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
       }
 		},
-    created: function () {}
+    created: function () {
+      this.calcTotal()
+    }
 })

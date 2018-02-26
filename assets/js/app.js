@@ -9,6 +9,7 @@ new Vue({
 				cantHombres: 0,
 				cantMujeres: 0,
 				cantNinos: 0,
+        totalAdultos: 0,
 				totalInvitados: 0,
 				selecPresupuesto: [],
 				presupuestos: [
@@ -60,27 +61,32 @@ new Vue({
         return this.totalInvitados
 			},
 			calcPan: function () {
-				this.totalPan = (this.cantNinos*1 + this.cantMujeres*1 + this.cantHombres*2)/2
+				this.totalPan = (this.cantNinos * 1 + this.cantMujeres * 1 + this.cantHombres * 2) / 2
         return this.totalPan
 			},
 			calcCarne: function () {
-				this.totalCarne = (this.cantNinos*0.2 + this.cantMujeres*0.25 + this.cantHombres*0.35).toFixed(2)
+				this.totalCarne = (this.cantNinos * 0.2 + this.cantMujeres * 0.25 + this.cantHombres * 0.35).toFixed(2)
         return this.totalCarne
 			},
       calcEmbutido: function () {
-        this.totalEmbutido = (this.cantNinos*0.05 + this.cantMujeres*0.05 + this.cantHombres*0.1).toFixed(2)
+        this.totalEmbutido = (this.cantNinos * 0.05 + this.cantMujeres * 0.05 + this.cantHombres * 0.1).toFixed(2)
         return this.totalEmbutido
       },
       calcCarbon: function () {
-        this.totalCarbon = (parseInt(this.totalCarne) + parseInt(this.totalEmbutido))*3/5
+        this.totalCarbon = (parseInt(this.totalCarne) + parseInt(this.totalEmbutido)) * 3 / 5
         return this.totalCarbon
       },
       calcTotal: function () {
-        this.precioTotal = this.monetyze(parseInt(this.selecPresupuesto[4]) + parseInt(this.selecPresupuesto[5]) + (parseInt(this.totalCarbon)*2800) + ((parseInt(this.totalPan)/12)*1200))
+        this.precioTotal = parseInt(this.selecPresupuesto[4]) + parseInt(this.selecPresupuesto[5]) + parseInt(this.totalCarbon) * 2800 + parseInt(this.totalPan / 12) * 1200
         return this.precioTotal
       },
       monetyze: function (value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      },
+      calcCadaUno: function () {
+        this.totalAdultos = parseInt(this.cantHombres) + parseInt(this.cantMujeres)
+        this.precioCada = this.precioTotal/this.totalAdultos
+        return this.precioCada
       }
 		},
     created: function () {

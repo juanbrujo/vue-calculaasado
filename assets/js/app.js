@@ -85,7 +85,7 @@ new Vue({
       },
       calcCadaUno: function () {
         this.totalAdultos = parseInt(this.cantHombres) + parseInt(this.cantMujeres)
-        this.precioCada = this.precioTotal/this.totalAdultos
+        this.precioCada = this.precioTotal / this.totalAdultos
         return this.precioCada
       }
 		},

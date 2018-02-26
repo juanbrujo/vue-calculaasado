@@ -54,8 +54,10 @@
 							<li>{{ calcCarbon() }} kg de Carbón</li>
 							<li>{{ calcPan() }} unidad(es) de pan marraqueta</li>
 						</ul>
-						<p class="precio-total">El costo total del asado es de ${{ this.monetyze(calcTotal()) }}</p>
-						<p>${{ this.monetyze(calcCadaUno()) }} por cada uno de los {{ totalAdultos }} adultos (niños no pagan)</p>
+						<div class="box-price" v-if="selecPresupuesto != 0">
+							<p class="precio-total">El costo total del asado es de <b>${{ this.monetyze(calcTotal()) }}</b></p>
+							<p><b>${{ this.monetyze(calcCadaUno()) }}</b> por cada uno de los {{ totalAdultos }} adultos (niños no pagan)</p>
+						</div>
 				</div>
 			</div>
 		</div>

@@ -30,33 +30,33 @@
 							<input type="number" min="0" name="mujeres" placeholder="Mujeres" v-model="cantMujeres">
 							<input type="number" min="0" name="ninos" placeholder="Niños" v-model="cantNinos">
 							<p><b>¿Cuál es tu presupuesto?</b></p>
-							<select v-model="selecPresupuesto">
+							<select v-model="presupuestoSeleccionado">
 								<option value="" disabled>Seleccione:</option>
-								<option v-for="presupuesto in presupuestos" :value="[presupuesto.type, presupuesto.alternative, presupuesto.food, presupuesto.embutido, presupuesto.precioCarne, presupuesto.precioEmbutido]">{{ presupuesto.name }}</option>
+								<option v-for="presupuesto in presupuestos" :value="presupuesto">{{ presupuesto.name }}</option>
 							</select>
-							<p>{{ selecPresupuesto[0] }}</p>
+							<p>{{ presupuestoSeleccionado.type }}</p>
 						</fieldset>
 					</form>
 				</div>
 				<div class="column-6">
 					<div class="box-result">
-						<h3>Total de invitados {{ calcTotalInvitados() }}</h3>
-						<p>Hombres: {{ cantHombres }} | Mujeres: {{ cantMujeres }} | Niños: {{ cantNinos }}</p>
+						<h3>Total de invitados {{ totalInvitados }}</h3>
+						<p>Hombres: {{ comensales.hombres }} | Mujeres: {{ comensales.mujeres }} | Niños: {{ comensales.ninos }}</p>				
 						<hr>
-						<ul>
-							<li v-if="selecPresupuesto != 'Sólo choripán'">
-								{{ calcCarne() }} kg de {{ selecPresupuesto[2] }}
-								<p class="alternativa">Alternativas: {{ selecPresupuesto[1] }}</p>
+						<ul v-if="debeMostrarResultados">
+							<li>
+								{{ cantidadCarne }} kg de {{ presupuestoSeleccionado.food }}
+								<p class="alternativa">Alternativas: {{ presupuestoSeleccionado.alternative }}</p>
 							</li>
-							<li v-if="selecPresupuesto != 'Sólo choripán'">
-								{{ calcEmbutido() }} kg de {{ selecPresupuesto[3] }}
+							<li>
+								{{ cantidadEmbutido }} kg de {{ presupuestoSeleccionado.alternative }}
 							</li>
-							<li>{{ calcCarbon() }} kg de Carbón</li>
-							<li>{{ calcPan() }} unidad(es) de pan marraqueta</li>
+							<li>{{ cantidadCarbon }} kg de Carbón</li>
+							<li>{{ cantidadPan }} unidad(es) de pan marraqueta</li>
 						</ul>
-						<div class="box-price" v-if="selecPresupuesto != 0">
-							<p class="precio-total">El costo total del asado es de <b>${{ this.monetyze(calcTotal()) }}</b></p>
-							<p><b>${{ this.monetyze(calcCadaUno()) }}</b> por cada uno de los {{ totalAdultos }} adultos (niños no pagan)</p>
+						<div class="box-price" v-if="debeMostrarResultados">
+							<p class="precio-total">El costo total del asado es de <b>${{ monetyze(precioTotal) }}</b></p>
+							<p><b>${{ monetyze(precioCadaUno) }}</b> por cada uno de los {{ cantidadAdultos }} adultos (niños no pagan)</p>
 						</div>
 				</div>
 			</div>

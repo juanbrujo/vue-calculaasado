@@ -1,4 +1,7 @@
 // source: http://calculatuasado.cl/javascripts/app.js
+const PRECIO_PAN = 1200
+const PRECIO_CARBON = 2800
+
 new Vue({
 	el: '#app',
 		data () {
@@ -9,87 +12,111 @@ new Vue({
 				cantHombres: 0,
 				cantMujeres: 0,
 				cantNinos: 0,
-        totalAdultos: 0,
-				totalInvitados: 0,
-				selecPresupuesto: [],
+        presupuestoSeleccionado: {},
 				presupuestos: [
 					{
+            id: 'PABRE',
 						name: 'Poco',
 						type: 'Sólo choripán',
             food: 'chorizos',
-						alternative: 'Quizás salchichas.',
+						alternative: 'Salchichas.',
             embutido: null,
             precioCarne: 0,
             precioEmbutido: 3800
 					},
 					{
+            id: 'PIOLA',
 						name: 'Medio',
-						type: 'Sobrecostilla y choripán',
-            food: 'sobrecostilla',
+						type: 'Sobrecostilla y Choripán',
+            food: 'Sobrecostilla',
 						alternative: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.',
             embutido: 'chorizos',
             precioCarne: 6400,
             precioEmbutido: 3800
 					},
 					{
+            id: 'PPP',
 						name: 'Harto',
-						type: 'Lomo vetado y buena longaniza',
-            food: 'lomo vetado',
+						type: 'Lomo vetado y Buena longaniza',
+            food: 'Lomo vetado',
 						alternative: 'Lomo liso, Punta de ganso y Tapa barriga.',
             embutido: 'longaniza',
             precioCarne: 9500,
             precioEmbutido: 5800
 					}
-				],
-				pesoComida: 0,
-				pesoEmbutido: 0,
-				pesoCarbon: 0,
-				cantPan: 0,
-        tipoEmbutido: null,
-        totalCarne: 0,
-        totalInvitados: 0,
-        totalPan: 0,
-        totalEmbutido: 0,
-        totalCarbon: 0,
-        precioTotal: 0,
-        precioCada: 0
+				]
 			}
-		},
+    },
+    computed: {
+      comensales () {
+        return this.getComensales()      
+      },
+      totalInvitados () {
+        return this.comensales.ninos + this.comensales.mujeres  + this.comensales.hombres
+      },
+      cantidadCarne () {
+        return this.round(this.comensales.ninos * 0.2 + this.comensales.mujeres * 0.25 + this.comensales.hombres * 0.35)
+      },
+      cantidadEmbutido () {
+        return this.round(this.comensales.ninos * 0.05 + this.comensales.mujeres * 0.05 + this.comensales.hombres * 0.1)
+      },
+      cantidadPan () {
+        return this.round((this.comensales.ninos * 1 + this.comensales.mujeres * 1 + this.comensales.hombres * 2) / 2)
+      },
+      cantidadCarbon () {
+        return this.round((this.cantidadCarne + this.cantidadEmbutido) * 3 / 5)
+      },
+      cantidadAdultos () {
+        return this.comensales.mujeres + this.comensales.hombres
+      },
+      presupuestoPoco () {
+        return this.presupuestoSeleccionado && this.presupuestoSeleccionado.id === 'PABRE'
+      },
+      presupuestoMedio () {
+        return this.presupuestoSeleccionado && this.presupuestoSeleccionado.id === 'PIOLA'
+      },
+      presupuestoHarto () {
+        return this.presupuestoSeleccionado && this.presupuestoSeleccionado.id === 'PPP'
+      },
+      precioTotal () {
+        const pan = this.cantidadPan / 10 * PRECIO_PAN
+        const carbon =  this.cantidadCarbon * PRECIO_CARBON 
+        const carne = this.cantidadCarne * this.presupuestoSeleccionado.precioCarne
+        const embutido = this.cantidadEmbutido * this.presupuestoSeleccionado.precioEmbutido
+        return this.round(carne + embutido + carbon + pan)
+      },
+      precioCadaUno () {
+        return this.round(this.precioTotal / this.cantidadAdultos)
+      },
+      debeMostrarResultados () {
+        return this.presupuestoSeleccionado.id && this.precioTotal > 0
+      }
+    },
 		methods: {
-			calcTotalInvitados: function () {
-				this.totalInvitados = this.totalInvitados = parseInt(this.cantHombres) + parseInt(this.cantMujeres) + parseInt(this.cantNinos)
-        return this.totalInvitados
-			},
-			calcPan: function () {
-				this.totalPan = (this.cantNinos * 1 + this.cantMujeres * 1 + this.cantHombres * 2) / 2
-        return this.totalPan
-			},
-			calcCarne: function () {
-				this.totalCarne = (this.cantNinos * 0.2 + this.cantMujeres * 0.25 + this.cantHombres * 0.35).toFixed(2)
-        return this.totalCarne
-			},
-      calcEmbutido: function () {
-        this.totalEmbutido = (this.cantNinos * 0.05 + this.cantMujeres * 0.05 + this.cantHombres * 0.1).toFixed(2)
-        return this.totalEmbutido
+      round (value) {
+        if(!value) {
+          return 0
+        }
+        return Math.round(value * 100) / 100
       },
-      calcCarbon: function () {
-        this.totalCarbon = (parseInt(this.totalCarne) + parseInt(this.totalEmbutido)) * 3 / 5
-        return this.totalCarbon
+      getComensales () {
+        return {
+          ninos: this.getNumeroAntiTroll(this.cantNinos),
+          mujeres: this.getNumeroAntiTroll(this.cantMujeres),
+          hombres: this.getNumeroAntiTroll(this.cantHombres)
+        }        
       },
-      calcTotal: function () {
-        this.precioTotal = parseInt(this.selecPresupuesto[4]) + parseInt(this.selecPresupuesto[5]) + parseInt(this.totalCarbon) * 2800 + parseInt(this.totalPan / 12) * 1200
-        return this.precioTotal
+      getNumeroAntiTroll (prop) {
+        let num
+
+        if (isNaN(prop) || !(typeof prop === 'number' && prop % 1 === 0)) {
+          num = 0
+        }
+        num = prop && prop > 0 && prop <= 999999 ? parseInt(prop) : 0
+        return isNaN(num) ? 0 : num
       },
-      monetyze: function (value) {
+      monetyze (value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
       },
-      calcCadaUno: function () {
-        this.totalAdultos = parseInt(this.cantHombres) + parseInt(this.cantMujeres)
-        this.precioCada = this.precioTotal / this.totalAdultos
-        return this.precioCada
-      }
-		},
-    created: function () {
-      this.calcTotal()
-    }
+		}
 })

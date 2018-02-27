@@ -1,55 +1,56 @@
 // source: http://calculatuasado.cl/javascripts/app.js
+
 const PRECIO_PAN = 1200
 const PRECIO_CARBON = 2800
 
 new Vue({
-	el: '#app',
-		data () {
-			return {
-				title: '¿Cuánto debo comprar para el asado?',
-				description: 'No te vuelvas loco calculando tu asado, te entregamos la herramienta perfecta. Indica la cantidad de comensales y cuál es tu presupuesto.',
-				disclaimer: '(Los cálculos son en base a valores reales de precios de Supermercados en Chile)',
-				cantHombres: 0,
-				cantMujeres: 0,
-				cantNinos: 0,
+  el: '#app',
+    data () {
+      return {
+        title: '¿Cuánto debo comprar para el asado?',
+        description: 'No te vuelvas loco calculando tu asado, te entregamos la herramienta perfecta. Indica la cantidad de comensales y cuál es tu presupuesto.',
+        disclaimer: '(Los cálculos son en base a valores reales de precios de Supermercados en Chile)',
+        cantHombres: 0,
+        cantMujeres: 0,
+        cantNinos: 0,
         presupuestoSeleccionado: {},
-				presupuestos: [
-					{
+        presupuestos: [
+          {
             id: 'PABRE',
-						name: 'Poco',
-						type: 'Sólo choripán',
+            name: 'Poco',
+            type: 'Sólo choripán',
             food: 'chorizos',
-						alternative: 'Salchichas.',
+            alternative: 'Salchichas.',
             embutido: null,
             precioCarne: 0,
             precioEmbutido: 3800
-					},
-					{
+          },
+          {
             id: 'PIOLA',
-						name: 'Medio',
-						type: 'Sobrecostilla y Choripán',
+            name: 'Medio',
+            type: 'Sobrecostilla y Choripán',
             food: 'Sobrecostilla',
-						alternative: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.',
+            alternative: 'Pulpa de Cerdo, Abastero, Punta Picana y Asado Carnicero.',
             embutido: 'chorizos',
             precioCarne: 6400,
             precioEmbutido: 3800
-					},
-					{
+          },
+          {
             id: 'PPP',
-						name: 'Harto',
-						type: 'Lomo vetado y Buena longaniza',
+            name: 'Harto',
+            type: 'Lomo vetado y Buena longaniza',
             food: 'Lomo vetado',
-						alternative: 'Lomo liso, Punta de ganso y Tapa barriga.',
+            alternative: 'Lomo liso, Punta de ganso y Tapa barriga.',
             embutido: 'longaniza',
             precioCarne: 9500,
             precioEmbutido: 5800
-					}
-				]
-			}
+          }
+        ]
+      }
     },
     computed: {
       comensales () {
-        return this.getComensales()      
+        return this.getComensales()
       },
       totalInvitados () {
         return this.comensales.ninos + this.comensales.mujeres  + this.comensales.hombres
@@ -92,7 +93,7 @@ new Vue({
         return this.presupuestoSeleccionado.id && this.precioTotal > 0
       }
     },
-		methods: {
+    methods: {
       round (value) {
         if(!value) {
           return 0
@@ -118,5 +119,5 @@ new Vue({
       monetyze (value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
       },
-		}
+    }
 })

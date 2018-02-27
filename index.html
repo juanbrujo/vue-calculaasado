@@ -48,8 +48,8 @@
 								{{ cantidadCarne }} kg de {{ presupuestoSeleccionado.food }}
 								<p class="alternativa">Alternativas: {{ presupuestoSeleccionado.alternative }}</p>
 							</li>
-							<li>
-								{{ cantidadEmbutido }} kg de {{ presupuestoSeleccionado.alternative }}
+							<li v-if="presupuestoSeleccionado.id !== 'PABRE'">
+								{{ cantidadEmbutido }} kg de {{ presupuestoSeleccionado.embutido }}
 							</li>
 							<li>{{ cantidadCarbon }} kg de Carbón</li>
 							<li>{{ cantidadPan }} unidad(es) de pan marraqueta</li>

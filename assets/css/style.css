@@ -61,6 +61,11 @@ h2 {
 	text-align: center;
 }
 
+.box-form legend {
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+
 .box-form input {
 	width: 2em;
 	height: 2em;
@@ -69,6 +74,13 @@ h2 {
 	text-align: center;
 	border: 0;
 	border-radius: .1em;
+}
+
+.box-form .-third {
+	width: 2em;
+	margin: 1em;
+	font-size: 1em;
+	text-align: center;
 }
 
 .box-form select {
@@ -123,4 +135,3 @@ h2 {
 .precio-total {
 	font-size: 1.4em;
 }
-
